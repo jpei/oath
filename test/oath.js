@@ -81,8 +81,10 @@ describe('oath', function () {
       });
     };
 
+    // nodeStyle is a function (num, callback)
+    // promised is a function (int) -> promise
     var promised = oath.promisify(nodeStyle);
-    xit('should call then on success', function (done) {
+    it('should call then on success', function (done) {
       promised(bigEnough)
         .then(function (message) {
           expect(message).to.equal('That\'s a big number!');
@@ -90,7 +92,7 @@ describe('oath', function () {
         });
     });
 
-    xit('should call catch on error', function (done) {
+    it('should call catch on error', function (done) {
       promised(tooSmall)
         .catch(function (message) {
           expect(message).to.equal('Not big enough!');
@@ -112,6 +114,10 @@ describe('oath', function () {
           return num + 20;
         }, 5);
       };
+      // step1 is a func
+      // step1(100) is a promise
+      // step1(100).then is a function that takes onSuccess
+      // step1(100).then(step2).then
 
       step1(100).then(step2).then(function (num) {
         expect(num).to.equal(130);
